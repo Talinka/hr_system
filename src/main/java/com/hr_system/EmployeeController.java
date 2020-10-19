@@ -2,6 +2,9 @@ package com.hr_system;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 @RestController
 public class EmployeeController {
     private final EmployeeRepository repository;
@@ -31,4 +34,8 @@ public class EmployeeController {
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
+    @GetMapping("/employees/average_age")
+    public Iterable<AverageAgeStatistics> getEmployeeAverageAges() {
+        return repository.getEmployeeAverageAges();
+    }
 }
