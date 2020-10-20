@@ -2,11 +2,8 @@ package com.hr_system;
 
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 public class EmployeeController {
@@ -16,14 +13,21 @@ public class EmployeeController {
         this.repository = repository;
     }
 
+    @RequestMapping("/")
+    public @ResponseBody String greeting() {
+        return "Welcome to HR system";
+    }
+
     @GetMapping("/employees")
+    @ResponseBody
     public Iterable<Employee> getEmployees() {
         return repository.findAll();
     }
 
     @PostMapping("/employees")
-    public void newEmployee(@RequestBody Employee newEmployee) {
-        repository.save(newEmployee);
+    @ResponseBody
+    public Employee addEmployee(@RequestBody Employee newEmployee) {
+        return repository.save(newEmployee);
     }
 
     @DeleteMapping("/employees")
